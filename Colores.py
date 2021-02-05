@@ -136,12 +136,10 @@ plt.clabel(c, fmt="%1.1f")
 head = flopy.utils.HeadFile('workspace/Ejercicio_1.hds').get_data()
 bud = flopy.utils.CellBudgetFile('workspace/Ejercicio_1.bud', precision='double')
 spdis = bud.get_data(text='DATA-SPDIS')[0]
-fig = plt.figure(figsize=(20,20))
 pmv = flopy.plot.PlotMapView(gwf)
 pmv.plot_array(head)
-pmv.plot_grid(colors='white')
-pmv.contour_array(head, levels=[100, 200, 300, 400], linewidths=10)
-pmv.plot_specific_discharge(spdis, color='red')
+pmv.contour_array(head, levels=[1, 2, 3, 4], linewidths=10)
+pmv.plot_specific_discharge(spdis, istep=5, jstep = 5 ,color='red')
 
  
 

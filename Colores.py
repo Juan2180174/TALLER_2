@@ -57,7 +57,7 @@ ic = flopy.mf6.ModflowGwfic(gwf, pname="ic", strt=start) #initial conditions.
 #Controla flujo entre celdas
 k=np.ones([10,N,N])
 k[1,:,:]=5e-1
-npf = flopy.mf6.ModflowGwfnpf(gwf, icelltype=1, k=k, save_flows=True, save_specific_discharge =True)
+npf = flopy.mf6.ModflowGwfnpf(gwf, icelltype=1, k=k, save_flows=True)
 
 #
 chd_rec = []
@@ -107,7 +107,6 @@ if not success:
     
 #Imprimiendo resultados
 headfile= 'workspace' +'/'+headfile
-budgetfile= 'workspace' +'/'+budgetfile
 hds = flopy.utils.binaryfile.HeadFile(headfile)
 h = hds.get_data(kstpkper=(0, 0))
 x = y = np.linspace(0, L, N)
@@ -133,13 +132,6 @@ c = ax.contour(x, z, h[:, 50, :], np.arange(90, 100.1, 0.2), colors="red")
 plt.clabel(c, fmt="%1.1f")
 
 #GRAFICO DE FLECHAS
-head = flopy.utils.HeadFile('workspace/Ejercicio_1.hds').get_data()
-bud = flopy.utils.CellBudgetFile('workspace/Ejercicio_1.bud', precision='double')
-spdis = bud.get_data(text='DATA-SPDIS')[0]
-pmv = flopy.plot.PlotMapView(gwf)
-pmv.plot_array(head)
-pmv.contour_array(head, levels=[1, 2, 3, 4], linewidths=10)
-pmv.plot_specific_discharge(spdis, istep=5, jstep = 5 ,color='red')
 
  
 
